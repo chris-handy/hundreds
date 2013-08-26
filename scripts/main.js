@@ -43,6 +43,3 @@ function drawCircle(){
 	if (circleY - 50 < 0 || circleY + 50 > 600) dy =- dy;
 }
 
-circle.addEventListener('mouseclick', function(e){
-	radius += 1;
-})

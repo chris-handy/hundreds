@@ -1,81 +1,148 @@
 /*******************************
-	setting up the stage/layers
+setting up the stage/layers
 ********************************/
-var stage = new Kinetic.Stage({
-	container : 'stage',
-	width : 900,
-	height : 600
-});
-var shapesLayer = new Kinetic.Layer();
+window.onload = function(){
+	var stage = new Kinetic.Stage({
+		container : 'stage',
+		width : 900,
+		height : 600
+	});
+	var shapesLayer = new Kinetic.Layer();
 
-/**********************************
-	creating the circle object
-*************************************/
-var circle = new Kinetic.Circle({
-	x : stage.getWidth() / 2,
-	y : stage.getHeight() / 2,
-	radius : 50,
-	fill : 'grey',
-	stroke : 'black',
-	strokeWidth : 1
-});
+	/**********************************
+		creating the circle object
+	*************************************/
+	var circle = new Kinetic.Circle({
+		x : stage.getWidth() / 2,
+		y : stage.getHeight() / 2,
+		radius : 50,
+		fill : 'grey',
+		stroke : 'black',
+		strokeWidth : 1
+	});
 
-/************************************************
-	create the binding box group for the circle
-**********************************************/
-/*var bindingBox = new Kinetic.Group({
-	x : stage.getWidth(),
-	y : stage.getHeight(),
-	dragBoundFunc: function(pos){
-		var x = stage.getWidth();
-		var y = stage.getHeight();
-		if(pos.x < 0){newX = 0}
-		if(pos.x > stage.getWidth()){newX = stage.getWidth()}
-		if(pos.y < 0){newY = 0}
-		if(pos.y > stage.getHeight()){newY = stage.getHeight()}
+	//the circles custom properties 
+	ball.vx = 0;
+    ball.vy = 0;
 
+    //add event listeners for mouseover/out/onclick
+    
+
+	/*************************************
+		add the circle to the stage
+	**************************************/
+	//bindingBox.add(circle);
+	shapesLayer.add(circle);
+	stage.add(shapesLayer);
+
+	var date = new Date();
+    var time = date.getTime();
+    animate(time, ball);
+}
+
+window.requestAnimFrame = (function(callback){
+	return window.requestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
+	window.mozRequestAnimationFrame ||
+	window.oRequestAnimationFrame ||
+	window.msRequestAnimationFrame ||
+	function(callback){
+		window.setTimeout(callback, 1000 / 60);
+	};
+})();	
+
+function animate(lastTime, circle){
+	var stage = circle.getStage();
+	var shapesLayer = circle.getLayer();
+	var date = new Date();
+	var time = date.getTime();
+	var timeDiff = time - lastTime;
+
+	// update
+	updateCircle(timeDiff, circle);
+
+	// draw
+	shapesLayer.draw();
+
+	// request new frame
+	requestAnimFrame(function(){
+		animate(time, circle);
+	});
+}
+ function updateCircle(timeDiff, circle){
+	var stage = circle.getStage();
+	var circleX = circle.x;
+	var circleY = circle.y;
+
+	// physics variables
+	var gravity = 20; // px / second^2
+	var speedIncrementFromGravityEachFrame = gravity * timeDiff / 1000;
+	var collisionDamper = 0.2; // 20% energy loss
+	var floorFriction = 5; // px / second^2
+	var floorFrictionSpeedReduction = floorFriction * timeDiff / 1000;
+
+	// if dragging and dropping
+	if (circle.drag.moving) {
+		var mousePos = stage.getMousePosition();
+
+		if (mousePos !== null) {
+			var mouseX = mousePos.x;
+			var mouseY = mousePos.y;
+
+			var c = 0.06 * timeDiff;
+			circle.vx = c * (mouseX - circle.lastMouseX);
+			circle.vy = c * (mouseY - circle.lastMouseY);
+			circle.lastMouseX = mouseX;
+			circle.lastMouseY = mouseY;
+		}
 	}
-});
-*/
-/*************************************
-	add the circle to the stage
-**************************************/
-//bindingBox.add(circle);
-shapesLayer.add(circle);
-stage.add(shapesLayer);
+	else {
+		// gravity
+		circle.vy += speedIncrementFromGravityEachFrame;
+		circleX += circle.vx;
+		circleY += circle.vy;
 
-/************************************************
-	creating the animation to move the circle
-*************************************************/
-var velocity = 50;
+		// ceiling condition
+		if (circleY < circle.radius) {
+			circleY = circle.radius;
+			circle.vy *= -1;
+			circle.vy *= (1 - collisionDamper);
+		}
 
-var anim = new Kinetic.Animation(function(frame) {
-	var dist = velocity * (frame.timeDiff / 100);
-	//console.log('adfasdf');
-	console.log(circle.getY());
-	circle.move(dist, 0);
-	if(circle.getX() - 50 < 0){
-		console.log('passed 0 stage width');
-		//circle.setX(0);
-		circle.move(0, 0);
+		// floor condition
+		if (circleY > (stage.height - circle.radius)) {
+			circleY = stage.height - circle.radius;
+			circle.vy *= -1;
+			circle.vy *= (1 - collisionDamper);
+		}
+
+		// floor friction
+		if (circleY == stage.height - circle.radius) {
+			if (circle.vx > 0.1) {
+				circle.vx -= floorFrictionSpeedReduction;
+			}
+			else if (circle.vx < -0.1) {
+				circle.vx += floorFrictionSpeedReduction;
+			}
+			else {
+				circle.vx = 0;
+			}
+		}
+
+		// right wall condition
+		if (circleX > (stage.width - circle.radius)) {
+			circleX = stage.width - circle.radius;
+			circle.vx *= -1;
+			circle.vx *= (1 - collisionDamper);
+		}
+
+		// left wall condition
+		if (circleX < (circle.radius)) {
+			circleX = circle.radius;
+			circle.vx *= -1;
+			circle.vx *= (1 - collisionDamper);
+		}
 	}
-	if(circle.getX() + 50 > stage.getWidth() ){
-		console.log('passed max stage width');
-		circle.setX(stage.getWidth()-50);
-	}
-	if(circle.getY() - 50 < 0){
-		console.log('passed 0 stage height');
-		circle.setY(0);
-	}
-	if(circle.getY() + 50 > stage.getHeight()){
-		console.log('passed max stage height');
-		circle.setY(stage.getHeight()-50);
-		//throw 'staahp';
 
-	}
-	
-}, shapesLayer);
-
-anim.start();
-
-//http://www.html5canvastutorials.com/labs/html5-canvas-interactive-ball-physics/
+	circle.setPosition(circleX, circleY);
+}

@@ -4,12 +4,20 @@
 		"selected_items":
 		[
 			[
-				"cir",
-				"circle"
+				"Bin",
+				"bindingBox"
+			],
+			[
+				"bind",
+				"bindingBox"
 			],
 			[
 				"cr",
-				"circleY"
+				"circle"
+			],
+			[
+				"cir",
+				"circle"
 			],
 			[
 				"circ",
@@ -35,15 +43,7 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 417,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "styles/main.css",
-			"settings":
-			{
-				"buffer_size": 119,
+				"buffer_size": 477,
 				"line_ending": "Windows"
 			}
 		},
@@ -51,7 +51,7 @@
 			"file": "scripts/main.js",
 			"settings":
 			{
-				"buffer_size": 1197,
+				"buffer_size": 2095,
 				"line_ending": "Windows"
 			}
 		}
@@ -59,9 +59,13 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 335.0,
+		"height": 228.0,
 		"selected_items":
 		[
+			[
+				"convert",
+				"Indentation: Convert to Tabs"
+			],
 			[
 				"packa",
 				"Package Control: Install Package"
@@ -83,7 +87,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 386.0
+		"width": 402.0
 	},
 	"console":
 	{
@@ -105,6 +109,7 @@
 	"file_history":
 	[
 		"/c/xampp/htdocs/hundreds/.git/COMMIT_EDITMSG",
+		"/C/xampp/htdocs/hundreds/styles/main.css",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/C/Users/Chris/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/C/Program Files/Sublime Text 3/Packages/Theme - Default.sublime-package",
@@ -112,7 +117,7 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 24.0
 	},
 	"find_in_files":
 	{
@@ -126,6 +131,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"dist"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -143,7 +149,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -152,15 +158,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 417,
+						"buffer_size": 477,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								214,
-								214
+								389,
+								389
 							]
 						],
 						"settings":
@@ -175,54 +181,28 @@
 				},
 				{
 					"buffer": 1,
-					"file": "styles/main.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 119,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								100,
-								100
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "scripts/main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1197,
+						"buffer_size": 2095,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1167,
-								1167
+								2016,
+								2016
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 480.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -232,7 +212,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 24.0
 	},
 	"input":
 	{
@@ -264,7 +244,7 @@
 	"project": "hundreds.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 44.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -277,11 +257,11 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
